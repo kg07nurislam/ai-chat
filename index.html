@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="ky">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>AI ChatBot</title>
+  <style>
+    body {
+      background-color: #000;
+      color: #00ffee;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 30px;
+    }
+
+    h1 {
+      font-size: 2em;
+      text-shadow: 0 0 10px #00ffee;
+    }
+
+    textarea {
+      width: 90%;
+      max-width: 500px;
+      height: 120px;
+      margin-top: 20px;
+      padding: 15px;
+      font-size: 16px;
+      background: #111;
+      color: #0ff;
+      border: 1px solid #00ffee;
+      border-radius: 10px;
+      resize: none;
+      box-shadow: 0 0 15px #00ffee77;
+    }
+
+    button {
+      margin-top: 20px;
+      padding: 10px 20px;
+      font-size: 16px;
+      background: #00ffee;
+      color: black;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      box-shadow: 0 0 10px #00ffee;
+      transition: 0.2s;
+    }
+
+    button:hover {
+      background: #00ccdd;
+    }
+
+    #responseBox {
+      margin-top: 30px;
+      width: 90%;
+      max-width: 600px;
+      background: #111;
+      padding: 20px;
+      border-radius: 10px;
+      border: 1px solid #00ffee;
+      white-space: pre-wrap;
+      box-shadow: 0 0 20px #00ffee44;
+    }
+  </style>
+</head>
+<body>
+  <h1>ChatGPT 4.0 Неон Бот</h1>
+  <textarea id="userInput" placeholder="Сурооңду жаз..."></textarea>
+  <button onclick="sendMessage()">Жөнөтүү</button>
+  <div id="responseBox">Жооп бул жакка чыгат...</div>
+
+  <script>
+    async function sendMessage() {
+      const userInput = document.getElementById("userInput").value.trim();
+      if (!userInput) return;
+
+      document.getElementById("responseBox").innerText = "Жооп жазылууда...";
+
+      const response = await fetch("https://844e05b0-73f4-4694-b360-3eebaee3bf6b-00-1wemdwrywbxwq.sisko.replit.dev/chat", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ message: userInput })
+      });
+
+      const data = await response.json();
+      document.getElementById("responseBox").innerText = data.reply || "Жооп алынган жок.";
+    }
+  </script>
+</body>
+</html>
